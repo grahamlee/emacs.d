@@ -1,0 +1,15 @@
+.DS_Store
+.cask
+.packages
+*.elc
+auto-save-list/
+eshell/
+url/
+*.eld
+.cache
+recentf
+places
+transient/
+*.log
+elpa/
+flycheck_*.el
