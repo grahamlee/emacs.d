@@ -426,17 +426,29 @@ project."
 ;; projectile
 (use-package projectile)
 (projectile-mode +1)
-(define-key projectile-mode-map (kbd "C-c C-g") 'projectile-grep)
-;(define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+;(setq projectile-use-git-grep t)
+(setq projectile-completion-system 'ivy)
+(setq projectile-switch-project-action #'projectile-commander)
+(setq projectile-enable-caching t)
+(setq projectile-indexing-method 'hybrid)
+(setq projectile-sort-order 'recently-active)
+(global-set-key (kbd "C-c C-g") 'projectile-grep-in-buffer)
+(global-set-key (kbd "C-c C-f") 'projectile-find-file)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 ;(global-set-key (kbd "C-c p K") 'projectile-remove-known-project)
+(setq grep-find-ignored-directories
+      (append '(".git" "bin" "build" "out" "dist" "lib" "libs" "node_modules" "vendor")
+	      grep-find-ignored-directories))
 (setq projectile-globally-ignored-directories
-      (append '(".DS_Store" ".git" ".svn" "out" "repl" "target" "dist" "lib" "node_modules" "libs" "deploy" ".emacs.d" ".cask" "vendor")
+      (append '(".git" "bin" "build" "out" "dist" "lib" "libs" "node_modules" "vendor")
               projectile-globally-ignored-directories))
 (setq projectile-globally-ignored-files
       (append '(".#*" ".DS_Store" "*.tar.gz" "*.tgz" "*.zip" "*.png" "*.jpg" "*.gif")
               projectile-globally-ignored-files))
- (setq grep-find-ignored-directories (append '("dist" "deploy" "node_modules" "vendor") grep-find-ignored-directories))
+
+(defun projectile-grep-in-buffer()
+  (interactive)
+  (command-execute 'projectile-grep))
 
 ;; eyebrowse
 (use-package eyebrowse)
@@ -494,6 +506,8 @@ project."
 
 ;; wgrep
 (use-package wgrep)
+(setq wgrep-auto-save-buffer t)
+(setq wgrep-change-readonly-file t)
 ;(global-set-key (kbd "C-c C-p") 'wgrep-change-to-wgrep-mode) ; default key binding
 
 ;; ibuffer-vc

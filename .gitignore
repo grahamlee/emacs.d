@@ -6,7 +6,7 @@ auto-save-list/
 eshell/
 url/
 *.eld
-.cache
+*.cache
 recentf
 places
 transient/
